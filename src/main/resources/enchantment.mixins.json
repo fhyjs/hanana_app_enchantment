@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "org.eu.hanana.reimu.app.mod.enchantment.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
