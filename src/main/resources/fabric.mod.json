@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "webui",
+  "id": "enchantment",
   "version": "1.0.0",
-  "name": "webui",
-  "description": "webui.",
+  "name": "enchantment",
+  "description": "enchantment.",
   "authors": [
     "HANANA"
   ],
@@ -14,14 +14,14 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.eu.hanana.reimu.app.mod.webui.ModFabric"
+      "org.eu.hanana.reimu.app.mod.enchantment.ModFabric"
     ],
     "post_start": [
 
     ]
   },
   "mixins": [
-    "webui.mixins.json"
+    "enchantment.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.13.0",
@@ -32,7 +32,7 @@
   },
   "custom":{
     "legacyMods":[
-      "webui_legacy"
+      "enchantment_legacy"
     ]
   }
 }

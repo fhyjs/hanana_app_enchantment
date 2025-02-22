@@ -1,6 +1,7 @@
 package org.eu.hanana.reimu.app.mod.enchantment.mixin;
 
 import lombok.extern.log4j.Log4j2;
+import net.fabricmc.loader.impl.util.log.Log;
 import org.checkerframework.checker.units.qual.A;
 import org.eu.hanana.reimu.app.mod.enchantment.connector.SatoriEventBridge;
 import org.eu.hanana.reimu.lib.satori.v1.client.SatoriClient;
@@ -14,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Log4j2
 @Mixin(SatoriClient.class)
 public abstract class MixinSatoriClient {
     @Shadow @Final public List<CallbackWsReceiver.Callback> events;
@@ -23,7 +23,6 @@ public abstract class MixinSatoriClient {
 
     @Inject(method = {"open(ZZ)V"},at=@At("RETURN"))
     public void open(boolean first, boolean sync, CallbackInfo ci){
-        
-        log.info("opened");
+        System.out.println("opened");
     }
 }
