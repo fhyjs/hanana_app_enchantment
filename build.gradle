@@ -89,8 +89,8 @@ publishing {
         maven {
             url 'https://maven.hanana2.link:2053/releases'
             credentials {
-                username lcUsername
-                password lcPassword
+                username project.hasProperty('lcUsername') ? project.lcUsername : "default_user"
+                password project.hasProperty('lcPassword') ? project.lcPassword : "lcPassword"
             }
         }
     }
