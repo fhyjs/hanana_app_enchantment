@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Util {
     public static CommandEvent parseCommand(String input, MessageEvent messageEvent){
+        if (!input.startsWith("/")) input="/"+input;
         List<String> result = new ArrayList<>();
 
         // 使用正则表达式处理空格和引号

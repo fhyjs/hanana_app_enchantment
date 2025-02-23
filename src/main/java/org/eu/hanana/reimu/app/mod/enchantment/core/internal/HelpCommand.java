@@ -29,7 +29,7 @@ public class HelpCommand extends AbstractCommandListener {
                 }
                 names.append(")");
             }
-            sb.append("    ").append(names).append(" ").append(getDescribe()).append("\n");
+            sb.append("    ").append(names).append(" ").append(commandListener.getDescribe()).append("\n");
         }
         enchantmentManager.sendMessage(sb.toString(),event.messageEvent.getChannel().id,event.messageEvent.login);
     }

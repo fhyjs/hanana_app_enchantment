@@ -8,6 +8,7 @@ import org.eu.hanana.reimu.app.mod.enchantment.ModMain;
 import org.eu.hanana.reimu.app.mod.enchantment.connector.event.SatoriEvent;
 import org.eu.hanana.reimu.app.mod.enchantment.core.Util;
 import org.eu.hanana.reimu.app.mod.enchantment.core.api.IConnectorApi;
+import org.eu.hanana.reimu.app.mod.enchantment.event.CommandEvent;
 import org.eu.hanana.reimu.app.mod.enchantment.event.LoginEvent;
 import org.eu.hanana.reimu.hnnapp.ModLoader;
 import org.eu.hanana.reimu.hnnapp.mods.Event;
@@ -17,6 +18,7 @@ import org.eu.hanana.reimu.lib.satori.v1.protocol.Login;
 import org.eu.hanana.reimu.lib.satori.v1.protocol.SignalBodyEvent;
 import org.eu.hanana.reimu.lib.satori.v1.protocol.SignalBodyIdentify;
 import org.eu.hanana.reimu.lib.satori.v1.protocol.eventtype.EventType;
+import org.eu.hanana.reimu.lib.satori.v1.protocol.eventtype.InteractionEvent;
 import org.eu.hanana.reimu.lib.satori.v1.protocol.eventtype.MessageEvent;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static org.eu.hanana.reimu.app.mod.enchantment.core.Util.parseCommand;
 import static org.eu.hanana.reimu.hnnapp.ModLoader.postEvent;
 
 public class SatoriManager implements Closeable, IConnectorApi {
@@ -80,6 +83,19 @@ public class SatoriManager implements Closeable, IConnectorApi {
             } else if (type.equals(EventType.login_updated)) {
                 var login = Util.copyObj(finalEvent.signalBodyEvent.login);
                 postEvent(new LoginEvent.Updated(login));
+            } else if (type.equals(EventType.interaction_command)) {
+                var ce = ((InteractionEvent.InteractionEventCommand) finalEvent.signalBodyEvent);
+                ce.message.channel = ce.channel;
+                ce.message.user = ce.user;
+                ce.message.guild = ce.guild;
+                ce.message.member = ce.member;
+                MessageEvent messageEvent = new MessageEvent();
+                messageEvent.login=ce.login;
+                messageEvent.user=ce.user;
+                messageEvent.member=ce.member;
+                messageEvent.message=ce.message;
+                messageEvent.channel=ce.channel;
+                ModLoader.postEvent(parseCommand(ce.message.content,messageEvent));
             }
             monoSink.success();
         }).subscribeOn(Schedulers.boundedElastic()).subscribe();

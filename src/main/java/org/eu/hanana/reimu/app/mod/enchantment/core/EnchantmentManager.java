@@ -4,6 +4,7 @@ import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
 import org.eu.hanana.reimu.app.mod.enchantment.ModFabric;
 import org.eu.hanana.reimu.app.mod.enchantment.core.api.IConnectorApi;
+import org.eu.hanana.reimu.app.mod.enchantment.event.CommandEvent;
 import org.eu.hanana.reimu.app.mod.enchantment.event.LoginEvent;
 import org.eu.hanana.reimu.app.mod.enchantment.event.MessageEvent;
 import org.eu.hanana.reimu.hnnapp.ModLoader;
